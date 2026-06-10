@@ -31,22 +31,22 @@ int main(int argc, char *argv[])
         std::cout << "Error: Cannot open outfile." << std::endl;
         return (1);
     }
-    int first = 1;
+    bool first = true;
     while (std::getline(file, line))
     {
         if (!first)
             out_file << std::endl;
         std::size_t start = 0;
-        std::size_t found = line.find(S1, 0);
+        std::size_t found = line.find(S1, start);
         while (found != std::string::npos)
         {
-            out_file << line.substr(start, found);
+            out_file << line.substr(start, found - start);
             out_file << S2;
             start = found + S1.length();
             found = line.find(S1, start);
         }
         out_file << line.substr(start);
-        first = 0;
+        first = false;
     }
     return (0);
 }
